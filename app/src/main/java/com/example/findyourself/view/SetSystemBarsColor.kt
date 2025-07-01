@@ -1,4 +1,4 @@
-package com.example.findyourself.view.screens.onBoarding.utils
+package com.example.findyourself.view
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

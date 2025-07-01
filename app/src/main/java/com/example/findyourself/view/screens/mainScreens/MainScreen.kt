@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -12,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,9 +44,11 @@ fun MainScreen(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.background).navigationBarsPadding(),
         bottomBar = {
             BottomAppBar(
-                modifier = Modifier.fillMaxWidth().height(70.dp).background(color = MaterialTheme.colorScheme.background),
-                backgroundColor = MaterialTheme.colorScheme.background,
-                elevation = 10.dp
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+                    .background(color = MaterialTheme.colorScheme.background)
+                    .shadow(elevation = 10.dp),
             ) {
                 BottomNavigationBar(homeNavController, authViewModel, userViewModel, connectChatViewModel)
             }

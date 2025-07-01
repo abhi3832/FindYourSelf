@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.findyourself.view.navigation.Graphs
 import com.example.findyourself.view.navigation.RootNavGraph
-import com.example.findyourself.view.screens.onBoarding.utils.SetSystemBarsColor
+import com.example.findyourself.view.SetSystemBarsColor
 import com.example.findyourself.view.theme.FindYourselfTheme
 import com.example.findyourself.view.viewModels.AuthViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
