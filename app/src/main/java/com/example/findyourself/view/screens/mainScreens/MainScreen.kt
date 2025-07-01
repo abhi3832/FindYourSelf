@@ -21,11 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.findyourself.view.navigation.BottomNavigation
 import com.example.findyourself.view.navigation.MainNavGraph
-import com.example.findyourself.view.viewModels.AuthViewModel
-import com.example.findyourself.view.viewModels.ConnectChatViewModel
-import com.example.findyourself.view.viewModels.ConnectViewModel
-import com.example.findyourself.view.viewModels.MessageViewModel
-import com.example.findyourself.view.viewModels.UserViewModel
+import com.example.findyourself.view.viewModels.*
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -41,7 +37,9 @@ fun MainScreen(
     val homeNavController = rememberNavController()
 
     Scaffold(
-        modifier = Modifier.background(color = MaterialTheme.colorScheme.background).navigationBarsPadding(),
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background)
+            .navigationBarsPadding(),
         bottomBar = {
             BottomAppBar(
                 modifier = Modifier
@@ -53,11 +51,13 @@ fun MainScreen(
                 BottomNavigationBar(homeNavController, authViewModel, userViewModel, connectChatViewModel)
             }
         },
-        topBar = {TopAppBarWithIcons(homeNavController)}
+        topBar = { TopAppBarWithIcons(homeNavController) }
     ) { paddingValues ->
 
-        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
-            MainNavGraph(homeNavController, rootNavController, authViewModel, userViewModel,connectViewModel,connectChatViewModel, messageViewModel)
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)) {
+            MainNavGraph(homeNavController, rootNavController)
         }
     }
 }
@@ -80,7 +80,7 @@ fun TopAppBarWithIcons(homeNavController: NavHostController) {
         "history" to "History"
     )
 
-    Column(modifier = Modifier.fillMaxWidth()){
+    Column(modifier = Modifier.fillMaxWidth()) {
         TopAppBar(
             modifier = Modifier.fillMaxWidth(),
             title = {
@@ -99,14 +99,19 @@ fun TopAppBarWithIcons(homeNavController: NavHostController) {
             ),
         )
 
-        if(screenTitles[currentRoute] == "Chats"){
-            Row(modifier = Modifier.fillMaxWidth().padding(8.dp).height(50.dp)){
+        if (screenTitles[currentRoute] == "Chats") {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(50.dp)) {
                 OutlinedTextField(
                     value = "",
                     onValueChange = {},
-                    leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null)},
-                    modifier = Modifier.fillMaxWidth()
-                        .weight(1f).clip(RoundedCornerShape(40.dp)),
+                    leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .clip(RoundedCornerShape(40.dp)),
                     shape = RoundedCornerShape(40.dp),
                     placeholder = { Text("Search Chats...") },
                     colors = TextFieldDefaults.colors(
@@ -140,7 +145,10 @@ fun BottomNavigationBar(
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.background,
-        modifier = Modifier.fillMaxWidth().background(color = MaterialTheme.colorScheme.background)) {
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.background)
+    ) {
         items.forEach { screen ->
 
             NavigationBarItem(
@@ -148,19 +156,21 @@ fun BottomNavigationBar(
                     Icon(
                         imageVector = screen.screenIcon,
                         contentDescription = screen.screenName,
-                        modifier = Modifier.size( 30.dp) // Hide the middle icon since FAB replaces it
+                        modifier = Modifier.size(30.dp) // Hide the middle icon since FAB replaces it
                     )
                 },
                 label = { Text(screen.screenName) },
                 selected = currentRoute == screen.screenRoute,
-                onClick = { if (currentRoute != screen.screenRoute) {
-                    Log.d("Jaipur", "CurrentRoute : $currentRoute")
-                    Log.d("Jaipur", "ScreenRoute : ${screen.screenRoute}")
-                    homeNavController.navigate(screen.screenRoute) {
-                        launchSingleTop = true
-                        restoreState = true
+                onClick = {
+                    if (currentRoute != screen.screenRoute) {
+                        Log.d("Jaipur", "CurrentRoute : $currentRoute")
+                        Log.d("Jaipur", "ScreenRoute : ${screen.screenRoute}")
+                        homeNavController.navigate(screen.screenRoute) {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
-                }},
+                },
                 alwaysShowLabel = false
             )
         }

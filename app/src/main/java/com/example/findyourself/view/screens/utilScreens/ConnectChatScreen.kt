@@ -14,16 +14,7 @@ import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,20 +25,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.findyourself.model.ActiveChat
 import com.example.findyourself.model.Message
 import com.example.findyourself.model.User
+import com.example.findyourself.view.dialogs.AlertDialogForEndingChat
 import com.example.findyourself.view.navigation.UserProfileDetailScreen
-import com.example.findyourself.model.ActiveChat
 import com.example.findyourself.view.screens.authScreens.showToast
-import com.example.findyourself.view.screens.utils.AlertDialogForEndingChat
 import com.example.findyourself.view.viewModels.ConnectChatViewModel
 import com.example.findyourself.view.viewModels.ConnectViewModel
 import com.example.findyourself.view.viewModels.MessageViewModel
 import com.example.findyourself.view.viewModels.UserViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
-import java.util.UUID
-import kotlin.String
+import java.util.*
 
 @Composable
 fun ConnectChatScreen(

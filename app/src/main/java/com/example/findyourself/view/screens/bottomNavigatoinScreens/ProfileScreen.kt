@@ -2,8 +2,10 @@ package com.example.findyourself.view.screens.bottomNavigatoinScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Message
 import androidx.compose.material.icons.filled.Person
@@ -17,26 +19,38 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.findyourself.view.viewModels.AuthViewModel
+import com.example.findyourself.model.User
+import com.example.findyourself.view.theme.FindYourselfTheme
 import com.example.findyourself.view.viewModels.UserViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ProfileScreen(
-    mainNavController: NavHostController,
-    rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel
+fun ProfileScreen() {
+    val userViewModel: UserViewModel = koinViewModel()
+
+    val user by userViewModel.user.collectAsState()
+
+    ProfileScreenContent(user)
+}
+
+@Composable
+private fun ProfileScreenContent(
+    user: User?,
 ) {
-    val user = userViewModel.user.value
     Column(
-        modifier = Modifier
-            .fillMaxSize().background(color = MaterialTheme.colorScheme.background)
-            .padding(horizontal = 16.dp, vertical = 24.dp),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 24.dp),
     ) {
         if(user != null) {
             Box(
@@ -56,13 +70,15 @@ fun ProfileScreen(
                 text = user.name,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center,
             )
             Text(
                 text = user.username,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Light,
-                color = Color.Gray
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -89,8 +105,8 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileInfoRow(label: String, value: String, icon: ImageVector) {
-
     var expanded by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,6 +142,55 @@ fun ProfileInfoRow(label: String, value: String, icon: ImageVector) {
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
+        }
+    }
+}
+
+private class UserPreview: PreviewParameterProvider<User> {
+    override val values: Sequence<User>
+        get() = sequenceOf(
+            User(
+                uid = "123456",
+                name = "VeryLong NamePerson SurnameSurname",
+                phone = "1234567",
+                username = "Pippo",
+                gender = "Male",
+                age = 25,
+                isOnline = true,
+            ),
+            User(
+                uid = "123456",
+                name = "VeryLong NamePerson SurnameSurname",
+                phone = "1234567",
+                username = "Pippo",
+                gender = "Male",
+                age = 25,
+                isOnline = false,
+            ),
+            User(
+                uid = "123456",
+                name = "VeryLong NamePerson SurnameSurname",
+                phone = "1234567",
+                username = "Pippo",
+                gender = "Male",
+                age = 25,
+                isOnline = false,
+                aboutYourself = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            ),
+        )
+}
+
+@Preview
+@Composable
+private fun ProfileScreenPreview(
+    @PreviewParameter(UserPreview::class)
+    user: User?
+) {
+    FindYourselfTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            ProfileScreenContent(
+                user = user
+            )
         }
     }
 }

@@ -26,17 +26,14 @@ import androidx.navigation.NavHostController
 import com.example.findyourself.view.viewModels.ConnectChatViewModel
 import com.example.findyourself.view.viewModels.ConnectViewModel
 import com.example.findyourself.view.viewModels.UserViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun HistoryScreen(
-    mainNavController: NavHostController,
-    rootNavController: NavHostController,
-    connectViewModel: ConnectViewModel,
-    userViewModel: UserViewModel,
-    connectChatViewModel: ConnectChatViewModel
-) {
-    val user = userViewModel.user.value!!
+fun HistoryScreen() {
+    val userViewModel: UserViewModel = koinViewModel()
+
+    val user by userViewModel.user.collectAsState()
 
     // 🔁 Start observing user's active chats only once
 //    LaunchedEffect(Unit) {

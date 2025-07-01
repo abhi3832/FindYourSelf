@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 
 data class Chat(
     val name: String,
@@ -26,7 +25,7 @@ data class Chat(
 )
 
 @Composable
-fun HomeScreen(mainNavController: NavHostController, rootNavController: NavHostController) {
+fun HomeScreen() {
     val chats = listOf(
         Chat("Stranger #12345", "Hey, how's it going?", "10:23 AM"),
         Chat("Stranger #67890", "Thanks for the chat!", "Yesterday"),
@@ -34,23 +33,23 @@ fun HomeScreen(mainNavController: NavHostController, rootNavController: NavHostC
     )
 
     Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-        ChatList(chats, rootNavController)
+        ChatList(chats)
     }
 }
 
 @Composable
-fun ChatList(chats: List<Chat>, rootNavController: NavHostController) {
+fun ChatList(chats: List<Chat>) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
         items(chats) { chat ->
-            ChatItem(chat, rootNavController)
+            ChatItem(chat)
         }
     }
 }
 
 @Composable
-fun ChatItem(chat: Chat, rootNavController: NavHostController) {
+fun ChatItem(chat: Chat) {
     Column {
         Row(
             modifier = Modifier

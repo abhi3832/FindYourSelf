@@ -1,21 +1,11 @@
 package com.example.findyourself.view.screens.bottomNavigatoinScreens
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Female
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Male
-import androidx.compose.material.icons.filled.NotificationsActive
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -29,31 +19,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.findyourself.model.ActiveChat
 import com.example.findyourself.model.CommonInterests
 import com.example.findyourself.model.ConnectResponse
 import com.example.findyourself.model.User
 import com.example.findyourself.view.navigation.ConnectChatDetailScreen
-import com.example.findyourself.model.ActiveChat
 import com.example.findyourself.view.screens.authScreens.showToast
-import com.example.findyourself.view.viewModels.ConnectChatViewModel
-import com.example.findyourself.view.viewModels.ConnectUiState
-import com.example.findyourself.view.viewModels.ConnectViewModel
-import com.example.findyourself.view.viewModels.CreateConnectChatUiState
-import com.example.findyourself.view.viewModels.LoadChatUserUiState
-import com.example.findyourself.view.viewModels.UserViewModel
+import com.example.findyourself.view.viewModels.*
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 fun ConnectScreen(
-    mainNavController: NavHostController,
     rootNavController: NavHostController,
-    connectViewModel: ConnectViewModel,
-    userViewModel: UserViewModel,
-    connectChatViewModel: ConnectChatViewModel
 ) {
+    val connectViewModel: ConnectViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
+    val connectChatViewModel: ConnectChatViewModel = koinViewModel()
 
-
-    val myUser = userViewModel.user.value
+    val myUser by userViewModel.user.collectAsState()
     val activeChat by connectChatViewModel.activeChat.collectAsState()
     val matchedUser = connectViewModel.participant.collectAsState()
     val chatId = remember { mutableStateOf("") }

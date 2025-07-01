@@ -1,10 +1,11 @@
-package com.example.findyourself.view.screens.utils
+package com.example.findyourself.view.dialogs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import com.example.findyourself.view.viewModels.ConnectChatViewModel

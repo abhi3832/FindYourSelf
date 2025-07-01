@@ -83,7 +83,7 @@ fun PhoneVerificationScreen(
     val exampleNumber = rememberSaveable{mutableStateOf("")}
 
     Log.d("asdf", selectedCountryCode.value)
-    Log.d("asdf", exampleNumber.value)
+    Log.d("asdf", mobileNumber.value)
 
 
     Column(
