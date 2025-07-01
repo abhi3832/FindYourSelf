@@ -1,0 +1,40 @@
+package com.example.findyourself.view.navigation
+
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import androidx.navigation.navigation
+import com.example.findyourself.view.screens.authScreens.OtpScreen
+import com.example.findyourself.view.screens.authScreens.PhoneVerificationScreen
+import com.example.findyourself.view.screens.authScreens.SignUpScreen
+
+fun NavGraphBuilder.authGraph(
+    rootNavController: NavHostController,
+) {
+    navigation(route = Graphs.AUTH_GRAPH, startDestination = AuthScreens.PhoneVerification.route) {
+        composable(AuthScreens.PhoneVerification.route) {
+            PhoneVerificationScreen(rootNavController)
+        }
+        composable(
+            AuthScreens.EnterCredentials.route,
+            arguments = listOf(navArgument("fullMobileNumber") { type = NavType.StringType })
+        )
+        { backStackEntry ->
+            val fullMobileNumber = backStackEntry.arguments?.getString("fullMobileNumber") ?: ""
+            SignUpScreen(rootNavController, fullMobileNumber)
+        }
+
+        composable(
+            route = AuthScreens.OtpScreen.route,
+            arguments = listOf(
+                navArgument("mobileNumber") { type = NavType.StringType },
+                navArgument("countryCode") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val mobileNumber = backStackEntry.arguments?.getString("mobileNumber") ?: ""
+            val countryCode = backStackEntry.arguments?.getString("countryCode") ?: ""
+            OtpScreen(rootNavController, mobileNumber, countryCode)
+        }
+    }
+}

@@ -1,10 +1,6 @@
 package com.example.findyourself
 
 import android.app.Application
-import com.example.findyourself.dependencyInjection.dataStoreModule
-import com.example.findyourself.dependencyInjection.repositoriesModule
-import com.example.findyourself.dependencyInjection.retrofitModule
-import com.example.findyourself.dependencyInjection.viewModelsModule
 import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -20,10 +16,7 @@ class FindYourSelfApplication : Application() {
             androidLogger()
             androidContext(this@FindYourSelfApplication)
             module { single<Application> { this@FindYourSelfApplication } }
-            modules(retrofitModule)
-            modules(dataStoreModule)
-            modules(viewModelsModule)
-            modules(repositoriesModule)
+            modules(appModule)
         }
 
         FirebaseApp.initializeApp(this)
