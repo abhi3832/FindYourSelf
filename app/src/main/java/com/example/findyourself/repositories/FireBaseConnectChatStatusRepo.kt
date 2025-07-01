@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.findyourself.dataClasses.Chat
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.onFailure
 import kotlinx.coroutines.flow.Flow
@@ -22,10 +24,10 @@ data class ActiveChat(
 )
 
 
-@Singleton
-class FirebaseConnectChatStatusRepo @Inject constructor(
-    private val firestore: FirebaseFirestore
-) {
+class FirebaseConnectChatStatusRepo {
+
+    private val firestore = Firebase.firestore
+
     fun observeChatAsFlow(chatId: String): Flow<Chat?> = callbackFlow {
         val listener = firestore.collection("currentlyChatting")
             .document(chatId)

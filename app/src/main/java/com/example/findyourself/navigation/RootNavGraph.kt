@@ -17,41 +17,30 @@ import com.example.findyourself.viewModels.UserViewModel
 
 @Composable
 fun RootNavGraph(
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel,
-    connectViewModel: ConnectViewModel,
-    connectChatViewModel: ConnectChatViewModel,
-    messageViewModel: MessageViewModel
+    startDestination: String,
 ) {
-
     val rootNavController = rememberNavController()
 
-    NavHost(navController = rootNavController, route = Graphs.ROOTGRAPH,
-        startDestination = if(authViewModel.onBoarded.value){
-            if(authViewModel.authDone.value){
-                Graphs.MAINNAVGRAPH
-            }else Graphs.AUTHGRAPH
-        }else Graphs.ONBOARDINGGRAPH
-
-    ){
-        authGraph(rootNavController, authViewModel, userViewModel)
-        onBoardingGraph(rootNavController,authViewModel,userViewModel)
-        composable(Graphs.MAINNAVGRAPH) { MainScreen(rootNavController, authViewModel, userViewModel,connectViewModel, connectChatViewModel, messageViewModel) }
-        composable(UserProfileDetailScreen.ProfileDetailScreen.route,
-            arguments = listOf(
-                navArgument("userId") { type = NavType.StringType }
-            )){ backStackEntry ->
+    NavHost(
+        navController = rootNavController, route = Graphs.ROOT_GRAPH,
+        startDestination = startDestination
+    ) {
+        authGraph(rootNavController)
+        onBoardingGraph(rootNavController)
+        composable(Graphs.MAIN_NAV_GRAPH) { MainScreen(rootNavController) }
+        composable(
+            UserProfileDetailScreen.ProfileDetailScreen.route,
+            arguments = listOf(navArgument("userId") { type = NavType.StringType })
+        ) { backStackEntry ->
             val userId = backStackEntry.arguments?.getString("userId") ?: ""
-            UserProfileScreenForRandomChat(userId,connectViewModel)
+            UserProfileScreenForRandomChat(userId)
         }
         composable(
             route = ConnectChatDetailScreen.DetailScreen.route,
-            arguments = listOf(
-                navArgument("chatId") { type = NavType.StringType }
-            )
+            arguments = listOf(navArgument("chatId") { type = NavType.StringType })
         ) { backStackEntry ->
             val chatId = backStackEntry.arguments?.getString("chatId") ?: ""
-            ConnectChatScreen(chatId, rootNavController,connectViewModel,connectChatViewModel, userViewModel, messageViewModel)
+            ConnectChatScreen(rootNavController, chatId)
         }
     }
 }

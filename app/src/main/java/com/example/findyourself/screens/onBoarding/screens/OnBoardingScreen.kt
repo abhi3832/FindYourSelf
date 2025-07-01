@@ -17,11 +17,14 @@ import com.example.findyourself.viewModels.UserViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun onBoardingScreen(rootNavController: NavHostController, authViewModel: AuthViewModel, userViewModel: UserViewModel) {
+fun onBoardingScreen(rootNavController: NavHostController) {
+    val authViewModel: AuthViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
 
     val pagerState = rememberPagerState()
     val pageCount = 3

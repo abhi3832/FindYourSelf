@@ -37,15 +37,16 @@ import com.example.findyourself.viewModels.AuthViewModel
 import com.example.findyourself.viewModels.UserViewModel
 import com.example.findyourself.viewModels.VerifyOtpEvent
 import kotlinx.coroutines.delay
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun OtpScreen(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
     mobileNumber: String,
     countryCode: String,
-    userViewModel: UserViewModel
 ) {
+    val authViewModel: AuthViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
 
     var secondsLeft by remember { mutableStateOf(30) }
     val otpValue = remember { mutableStateOf("") }
@@ -104,8 +105,8 @@ fun OtpScreen(
 
                         userViewModel.loadUser()
 
-                        rootNavController.navigate(Graphs.MAINNAVGRAPH){
-                            popUpTo(Graphs.AUTHGRAPH){
+                        rootNavController.navigate(Graphs.MAIN_NAV_GRAPH){
+                            popUpTo(Graphs.AUTH_GRAPH){
                                 inclusive = true
                             }
                         }

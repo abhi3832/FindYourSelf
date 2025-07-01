@@ -1,14 +1,11 @@
 package com.example.findyourself.navigation
 
-import com.example.findyourself.dataClasses.Country
-
 
 object Graphs{
-
-    const val ONBOARDINGGRAPH = "onBoardingGraph"
-    const val ROOTGRAPH = "rootGraph"
-    const val AUTHGRAPH = "authGraph"
-    const val MAINNAVGRAPH = "mainNavGraph"
+    const val ONBOARDING_GRAPH = "onBoardingGraph"
+    const val ROOT_GRAPH = "rootGraph"
+    const val AUTH_GRAPH = "authGraph"
+    const val MAIN_NAV_GRAPH = "mainNavGraph"
 }
 
 sealed class AuthScreens(val route : String){

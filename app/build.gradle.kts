@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.googleServices)
-    alias(libs.plugins.kapt)
 }
 
 android {
@@ -50,6 +49,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.koin)
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
     implementation(libs.accompanist.systemuicontroller)
@@ -57,8 +58,6 @@ dependencies {
     implementation(libs.androidx.materialIconsExtended)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ohteepee)
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.libphonenumber)

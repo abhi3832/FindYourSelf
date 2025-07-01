@@ -26,14 +26,14 @@ fun MainNavGraph(
     messageViewModel: MessageViewModel
 ) {
     NavHost(
-         navController = mainNavController,
-        route = Graphs.MAINNAVGRAPH,
+        navController = mainNavController,
+        route = Graphs.MAIN_NAV_GRAPH,
         startDestination = MainNavScreens.ChatScreen.route
     ) {
         composable(MainNavScreens.ChatScreen.route) { HomeScreen(mainNavController, rootNavController) }
-        composable(MainNavScreens.ConnectScreen.route) { ConnectScreen(mainNavController, rootNavController,connectViewModel,userViewModel, connectChatViewModel) }
+        composable(MainNavScreens.ConnectScreen.route) { ConnectScreen(mainNavController, rootNavController, connectViewModel, userViewModel, connectChatViewModel) }
         composable(MainNavScreens.ProfileScreen.route) { ProfileScreen(mainNavController, rootNavController, authViewModel, userViewModel) }
-        composable(MainNavScreens.HistoryScreen.route) { HistoryScreen(mainNavController, rootNavController, connectViewModel,userViewModel, connectChatViewModel) }
+        composable(MainNavScreens.HistoryScreen.route) { HistoryScreen(mainNavController, rootNavController, connectViewModel, userViewModel, connectChatViewModel) }
         composable(MainNavScreens.NotificationScreen.route) { InboxScreen(mainNavController, rootNavController) }
     }
 }

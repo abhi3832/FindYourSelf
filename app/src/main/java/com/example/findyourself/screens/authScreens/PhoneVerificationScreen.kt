@@ -31,14 +31,13 @@ import com.example.findyourself.navigation.AuthScreens
 import com.example.findyourself.screens.authScreens.utils.FullSizedButton
 import com.example.findyourself.viewModels.AuthViewModel
 import com.example.findyourself.viewModels.OtpUiEvent
-import com.example.findyourself.viewModels.UserViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun PhoneVerificationScreen(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel
 ) {
+    val authViewModel = koinViewModel<AuthViewModel>()
 
     val mobileNumber = rememberSaveable { mutableStateOf("") }
     val selectedCountryCode = rememberSaveable{

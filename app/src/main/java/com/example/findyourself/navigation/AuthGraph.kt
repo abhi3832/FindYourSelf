@@ -14,30 +14,29 @@ import com.example.findyourself.viewModels.UserViewModel
 
 fun NavGraphBuilder.authGraph(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel
 ) {
-
-
-    navigation(route = Graphs.AUTHGRAPH, startDestination = AuthScreens.PhoneVerification.route){
-        composable(AuthScreens.PhoneVerification.route){
-            PhoneVerificationScreen(rootNavController, authViewModel, userViewModel)
+    navigation(route = Graphs.AUTH_GRAPH, startDestination = AuthScreens.PhoneVerification.route) {
+        composable(AuthScreens.PhoneVerification.route) {
+            PhoneVerificationScreen(rootNavController)
         }
-        composable(AuthScreens.EnterCredentials.route,
-            arguments = listOf(navArgument("fullMobileNumber") { type = NavType.StringType }))
+        composable(
+            AuthScreens.EnterCredentials.route,
+            arguments = listOf(navArgument("fullMobileNumber") { type = NavType.StringType })
+        )
         { backStackEntry ->
             val fullMobileNumber = backStackEntry.arguments?.getString("fullMobileNumber") ?: ""
-            SignUpScreen(rootNavController,authViewModel, fullMobileNumber, userViewModel)
+            SignUpScreen(rootNavController, fullMobileNumber)
         }
 
         composable(
             route = AuthScreens.OtpScreen.route,
-            arguments = listOf(navArgument("mobileNumber") { type = NavType.StringType },
+            arguments = listOf(
+                navArgument("mobileNumber") { type = NavType.StringType },
                 navArgument("countryCode") { type = NavType.StringType })
         ) { backStackEntry ->
             val mobileNumber = backStackEntry.arguments?.getString("mobileNumber") ?: ""
             val countryCode = backStackEntry.arguments?.getString("countryCode") ?: ""
-            OtpScreen(rootNavController, authViewModel, mobileNumber, countryCode, userViewModel)
+            OtpScreen(rootNavController, mobileNumber, countryCode)
         }
     }
 }

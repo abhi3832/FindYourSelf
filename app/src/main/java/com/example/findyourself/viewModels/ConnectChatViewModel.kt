@@ -25,6 +25,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,12 +44,10 @@ sealed class EndChatUiState {
 }
 
 
-@Singleton
-class ConnectChatViewModel @Inject constructor(
-    private val activeChatRepository: FirebaseConnectChatStatusRepo,
-    private val typingStatusRepository: TypingStatusRepository
+class ConnectChatViewModel : ViewModel(), KoinComponent {
+    private val activeChatRepository: FirebaseConnectChatStatusRepo by inject()
+    private val typingStatusRepository: TypingStatusRepository by inject()
 
-) : ViewModel() {
 
     private val _chatId = MutableStateFlow<String?>(null)
     private val _currentUserId = MutableStateFlow<String?>(null)

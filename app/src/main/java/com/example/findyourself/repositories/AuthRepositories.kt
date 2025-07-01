@@ -1,7 +1,7 @@
 package com.example.findyourself.repositories
 
 import android.util.Log
-import com.example.findyourself.dependencyInjection.SecureStorage
+import com.example.findyourself.repositories.SecureStorage
 import com.example.findyourself.retrofit.API
 import com.example.findyourself.retrofit.RefreshTokenRequest
 import com.example.findyourself.retrofit.SendOtpResponse
@@ -13,12 +13,10 @@ import com.example.findyourself.retrofit.UsernameResponse
 import com.example.findyourself.retrofit.VerifyOtpResponse
 import com.example.findyourself.utils.PreferenceKeys
 import com.example.findyourself.utils.SecureStorageKeys
-import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class AuthRepositories @Inject constructor(private val api: API, private val secureStorage: SecureStorage) {
+class AuthRepositories(private val api: API, private val secureStorage: SecureStorage) {
 
     private fun getAccessToken(): String? {
         return secureStorage.getString(SecureStorageKeys.ACCESS_TOKEN.toString())

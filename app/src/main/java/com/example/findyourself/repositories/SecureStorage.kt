@@ -1,39 +1,10 @@
-package com.example.findyourself.dependencyInjection
+package com.example.findyourself.repositories
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.datastore.core.DataStore
-import androidx.datastore.dataStoreFile
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
-import androidx.core.content.edit
-
-
-
-@Module
-object DataStoreModule {
-
-    @Provides
-    @Singleton
-    fun provideDataStore(application: Application): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create {
-            application.dataStoreFile("secure_user_prefs")
-        }
-
-    @Provides
-    @Singleton
-    fun provideEncryptionManager(application: Application): SecureStorage {
-        return SecureStorage(application)
-    }
-
-}
-
 
 class SecureStorage(context: Context) {
 
@@ -73,5 +44,3 @@ class SecureStorage(context: Context) {
         cipher.edit { clear() }
     }
 }
-
-

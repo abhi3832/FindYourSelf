@@ -32,8 +32,8 @@ fun ShowLoginSignUpButton(
             shape = RoundedCornerShape(16.dp),
             onClick = {
                // authViewModel.setOnboardingCompleted()
-                rootNavController.navigate(Graphs.AUTHGRAPH){
-                    popUpTo(Graphs.ONBOARDINGGRAPH){inclusive = true}
+                rootNavController.navigate(Graphs.AUTH_GRAPH){
+                    popUpTo(Graphs.ONBOARDING_GRAPH){inclusive = true}
                 }
             },
             colors = ButtonDefaults.buttonColors(

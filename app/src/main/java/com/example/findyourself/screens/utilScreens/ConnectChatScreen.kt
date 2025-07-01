@@ -45,18 +45,19 @@ import com.example.findyourself.viewModels.ConnectViewModel
 import com.example.findyourself.viewModels.MessageViewModel
 import com.example.findyourself.viewModels.UserViewModel
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 import java.util.UUID
 import kotlin.String
 
 @Composable
 fun ConnectChatScreen(
-    chatId: String,
     rootNavController: NavHostController,
-    connectViewModel: ConnectViewModel,
-    connectChatViewModel: ConnectChatViewModel,
-    userViewModel: UserViewModel,
-    messageViewModel: MessageViewModel
+    chatId: String,
 ) {
+    val connectViewModel: ConnectViewModel = koinViewModel()
+    val connectChatViewModel: ConnectChatViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
+    val messageViewModel: MessageViewModel = koinViewModel()
 
     val messages by messageViewModel.messages.collectAsState()
 
@@ -65,7 +66,7 @@ fun ConnectChatScreen(
     }
 
 
-    val myUser = userViewModel.user.value
+    val myUser by userViewModel.user.collectAsState()
     val participant = connectViewModel.participant.collectAsState()
     val activeChat by connectChatViewModel.activeChat.collectAsState()
 

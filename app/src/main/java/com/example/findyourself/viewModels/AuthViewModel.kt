@@ -9,7 +9,6 @@ import com.example.findyourself.repositories.AuthRepositories
 import com.example.findyourself.repositories.UserRepository
 import com.example.findyourself.retrofit.SignUpRequest
 import com.example.findyourself.retrofit.SignUpResponse
-import com.example.findyourself.retrofit.TokenValidityResponse
 import com.example.findyourself.retrofit.UsernameResponse
 import com.example.findyourself.retrofit.VerifyOtpResponse
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,8 +16,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 sealed class OtpUiEvent {
     data class Success(val verificationId: String) : OtpUiEvent()
@@ -54,13 +53,9 @@ enum class AuthState {
      AUTHENTICATED, UNAUTHENTICATED, ONBOARDING
 }
 
-
-
-
-
-@Singleton
-class AuthViewModel @Inject constructor(private val authRepo: AuthRepositories, private val userRepository: UserRepository) : ViewModel() {
-
+class AuthViewModel : ViewModel(), KoinComponent {
+    private val authRepo: AuthRepositories by inject()
+    private val userRepository: UserRepository by inject()
 
     private val _authState = MutableSharedFlow<AuthState>()
     val authState: SharedFlow<AuthState> = _authState

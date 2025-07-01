@@ -61,16 +61,17 @@ import com.example.findyourself.viewModels.CheckUserNameEvent
 import com.example.findyourself.viewModels.SignUpEvent
 import com.example.findyourself.viewModels.UserViewModel
 import kotlinx.coroutines.delay
+import org.koin.compose.viewmodel.koinViewModel
 
 //rootNavController: NavHostController, authViewModel: AuthViewModel,
 
 @Composable
 fun SignUpScreen(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
     fullMobileNumber: String,
-    userViewModel: UserViewModel
 ) {
+    val authViewModel: AuthViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
 
     val fullName = remember { mutableStateOf("") }
     val userName = remember { mutableStateOf("") }
@@ -140,8 +141,8 @@ fun SignUpScreen(
                     if(user != null && accessToken != null && refreshToken != null){
                         userViewModel.saveUserSession(user,accessToken,refreshToken)
                         userViewModel.loadUser()
-                        rootNavController.navigate(Graphs.MAINNAVGRAPH){
-                            popUpTo(Graphs.AUTHGRAPH){
+                        rootNavController.navigate(Graphs.MAIN_NAV_GRAPH){
+                            popUpTo(Graphs.AUTH_GRAPH){
                                 inclusive = true
                             }
                         }

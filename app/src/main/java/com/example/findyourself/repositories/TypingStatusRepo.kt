@@ -9,9 +9,9 @@ import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class TypingStatusRepository @Inject constructor(private val db : FirebaseDatabase) {
+class TypingStatusRepository {
 
+    private val db = FirebaseDatabase.getInstance()
 
     fun setTypingStatus(chatId: String, userId: String, isTyping: Boolean) {
         db.getReference("typingStatus")

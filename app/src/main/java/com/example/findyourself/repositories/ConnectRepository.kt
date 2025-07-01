@@ -7,14 +7,16 @@ import com.example.findyourself.retrofit.API
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import okhttp3.*
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume
 
 
-@Singleton
-class ConnectRepository @Inject constructor(private val api: API) {
+class ConnectRepository: KoinComponent {
+    private val api: API by inject()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun connectToStranger(userId: String, interests: List<String>): Result<ConnectResponse> {

@@ -10,13 +10,10 @@ import com.example.findyourself.viewModels.UserViewModel
 
 fun NavGraphBuilder.onBoardingGraph(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel
 ) {
-    navigation(route = Graphs.ONBOARDINGGRAPH, startDestination = OnBoardingScreens.OnBoardingScreen.route){
-        composable(OnBoardingScreens.OnBoardingScreen.route){
-            onBoardingScreen(rootNavController,authViewModel,userViewModel)
+    navigation(route = Graphs.ONBOARDING_GRAPH, startDestination = OnBoardingScreens.OnBoardingScreen.route) {
+        composable(OnBoardingScreens.OnBoardingScreen.route) {
+            onBoardingScreen(rootNavController)
         }
-
     }
 }

@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.findyourself.dataClasses.User
 import com.example.findyourself.screens.bottomNavigatoinScreens.StatisticsSection
 import com.example.findyourself.viewModels.ConnectViewModel
-import com.example.findyourself.viewModels.LoadChatUserUiState
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun UserProfileScreenForRandomChat(userId: String, connectViewModel: ConnectViewModel) {
+fun UserProfileScreenForRandomChat(userId: String) {
+    val connectViewModel: ConnectViewModel = koinViewModel()
 
     val showLoadingIndicatorForGettingUser = remember { mutableStateOf(false) }
     val user = connectViewModel.participant.collectAsState()

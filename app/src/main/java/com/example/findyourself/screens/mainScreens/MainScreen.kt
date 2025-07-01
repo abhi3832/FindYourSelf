@@ -26,16 +26,17 @@ import com.example.findyourself.viewModels.ConnectChatViewModel
 import com.example.findyourself.viewModels.ConnectViewModel
 import com.example.findyourself.viewModels.MessageViewModel
 import com.example.findyourself.viewModels.UserViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
     rootNavController: NavHostController,
-    authViewModel: AuthViewModel,
-    userViewModel: UserViewModel,
-    connectViewModel: ConnectViewModel,
-    connectChatViewModel: ConnectChatViewModel,
-    messageViewModel: MessageViewModel
 ) {
+    val authViewModel: AuthViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
+    val connectViewModel: ConnectViewModel = koinViewModel()
+    val connectChatViewModel: ConnectChatViewModel = koinViewModel()
+    val messageViewModel: MessageViewModel = koinViewModel()
 
     val homeNavController = rememberNavController()
 

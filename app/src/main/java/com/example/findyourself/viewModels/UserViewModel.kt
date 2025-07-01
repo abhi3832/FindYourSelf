@@ -2,9 +2,7 @@ package com.example.findyourself.viewModels
 
 import androidx.lifecycle.ViewModel
 import com.example.findyourself.dataClasses.User
-import com.example.findyourself.dependencyInjection.SecureStorage
 import com.example.findyourself.repositories.UserRepository
-import com.example.findyourself.utils.SecureStorageKeys
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
